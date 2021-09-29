@@ -125,7 +125,7 @@ def sqlcmd(uid, username, update_time, source_user, comment):
 
 
 def get_comment(word):
-    server = 1:
+    server = 1
     if server:
         db = MySQLdb.connect(
             "localhost",
@@ -182,7 +182,6 @@ def get_comment(word):
         commemts = main_function(weibo_bid[i], retweeted_username[i])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
-            print(L)
             sql = sqlcmd(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4])
             control.execute(sql)
             db.commit()
