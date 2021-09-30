@@ -186,10 +186,12 @@ def get_comment(word,mode):
     sql = "select uid from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     weibo_bid = control.fetchall()
-    print(weibo_bid)
+    weibo_bid = tuple(set(weibo_bid))
+
     sql = "select source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     retweeted_username = control.fetchall()
+    retweeted_username = tuple(set(retweeted_username))
 
     for i in range(0, len(weibo_bid)):
         commemts = main_function(weibo_bid[i][0], retweeted_username[i][0])
