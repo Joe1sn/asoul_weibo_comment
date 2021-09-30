@@ -62,6 +62,7 @@ def get_comments(json_data, lists, username):
     time = ""
     comments = ""
     reply = ""
+    bid = ""
     datas = json_data.get('data').get('data')
 
     for data in datas:
