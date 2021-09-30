@@ -126,6 +126,11 @@ def add(uid, username, update_time, source_user, comment,bid):
                 source_user=source_user, comment=comment.replace("'", "''").replace("\"", "\\\""),bid=bid,)
     return cmd
 
+#处理报错
+def save_error(msg):
+    with open("error.log", "w") as file:
+        file.writelines(msg)
+
 def get_comment(word,mode):
     server = 1
     if server:
@@ -199,7 +204,6 @@ def get_comment(word,mode):
                 db.commit()
             except:
                 print(sql)
-                with open("error.log","w") as file:
-                    file.writelines(sql)
+                save_error()
             count += 1
     db.close()
