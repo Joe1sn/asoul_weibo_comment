@@ -199,5 +199,7 @@ def get_comment(word,mode):
                 db.commit()
             except:
                 print(sql)
+                with open("error.log","w") as file:
+                    file.writelines(sql)
             count += 1
     db.close()
