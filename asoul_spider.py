@@ -95,8 +95,11 @@ def get_detailed_Data(item):
         'retweeted_username': "",  # 默认无转发关系
         'bid':item.get('bid'),
     }
-    if item.get('retweeted_status'):  # 判断有无转发/回复关系
-        data['retweeted_username'] = item.get('retweeted_status').get('user').get('screen_name')
+    try:
+        if item.get('retweeted_status'):  # 判断有无转发/回复关系
+            data['retweeted_username'] = item.get('retweeted_status').get('user').get('screen_name')
+    except:
+        save_error(item)
     index += 1
 
     return data
