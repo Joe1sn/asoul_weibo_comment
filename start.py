@@ -19,6 +19,7 @@ if __name__ == '__main__':
     while i < len(keyword_list):
         if ch == 'M':
             get_comment(keyword_list[i],1)
+            ch = 'N'
         else:
             get_comment(keyword_list[i],0)
         i+=1
