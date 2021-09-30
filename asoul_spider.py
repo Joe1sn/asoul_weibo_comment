@@ -18,7 +18,7 @@ import time
 # keyword_list = ["asoul", "嘉然", "向晚", "贝拉", "珈乐", "乃琳"]
 global keyword
 
-SNAP = 2
+SNAP = 4
 
 weibo_base_url = 'https://m.weibo.cn/api/container/getIndex?'
 
@@ -125,7 +125,7 @@ def sqlcmd(uid, username, update_time, source_user, comment):
 
 
 def get_comment(word):
-    server = 1
+    server = 0
     if server:
         db = MySQLdb.connect(
             "localhost",

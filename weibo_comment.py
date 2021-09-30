@@ -17,7 +17,7 @@ comments_list = []
 with open("list.txt", "r", encoding="utf-8") as list_file:
     comments_list = list(list_file.read())
 
-SNAP = 2  # 间隔时间 s
+SNAP = 3  # 间隔时间 s
 
 
 # 保存评论列表
