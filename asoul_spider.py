@@ -153,7 +153,7 @@ def get_comment(word,mode):
     # 爬取相关话题微博
     while 1:  # 瀑布流下拉式，加载
         if mode:
-            page = 4
+            page = 11
         else:
             page += 1
 
