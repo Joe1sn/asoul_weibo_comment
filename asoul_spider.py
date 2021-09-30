@@ -186,6 +186,7 @@ def get_comment(word,mode):
     sql = "select uid from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     weibo_bid = control.fetchall()
+    print(weibo_bid)
     sql = "select source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     retweeted_username = control.fetchall()
