@@ -192,8 +192,12 @@ def get_comment(word,mode):
         commemts = main_function(bid_username[i][0], bid_username[i][1])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
-            sql = add(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4], bid=bid_username[i][0])
-            control.execute(sql)
-            db.commit()
+            sql = add(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4],\
+                      bid=bid_username[i][0])
+            try:
+                control.execute(sql)
+                db.commit()
+            except:
+                print(sql)
             count += 1
     db.close()
