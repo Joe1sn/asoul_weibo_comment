@@ -122,6 +122,7 @@ def add(uid, username, update_time, source_user, comment):
                 comment=comment.replace("'", "''").replace("\"", "\\\""))
     return cmd
 
+
 # def seach():
 #     return
 
@@ -170,8 +171,8 @@ def get_comment(word):
                 update_time = result.get('created')
                 source_user = result.get('retweeted_username')
                 comment = result.get('text')
-                sql = add(uid=uid,username=username, update_time=update_time, source_user=source_user,
-                             comment=comment)
+                sql = add(uid=uid, username=username, update_time=update_time, source_user=source_user,
+                          comment=comment)
                 global count
                 count += 1
                 control.execute(sql)

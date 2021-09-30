@@ -16,6 +16,7 @@ comments_list = []
 SNAP = 3  # 间隔时间 s
 LONGSNAP = 60
 
+
 # 发送请求、获取数据
 def get_data(url):
     headers = {
@@ -85,10 +86,11 @@ def get_comments(json_data, lists, username):
 
         lists.append([id, user_name, time, reply, comments])
 
+
 # 获取微博评论主函数
 def main_function(weibo_bid, retweeted_username):
     num = 1
-    lists=[]
+    lists = []
     print("开始爬取%s的微博评论。。。" % retweeted_username)
     while 1:
         url = 'https://m.weibo.cn/api/comments/show?id=' + str(weibo_bid) + '&page=' + str(num)
