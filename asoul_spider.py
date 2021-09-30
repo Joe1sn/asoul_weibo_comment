@@ -153,7 +153,7 @@ def get_comment(word,mode):
     # 爬取相关话题微博
     while 1:  # 瀑布流下拉式，加载
         if mode:
-            page = 11
+            page = 13
         else:
             page += 1
 
@@ -187,7 +187,7 @@ def get_comment(word,mode):
     control.execute(sql)
     weibo_bid = control.fetchall()
     weibo_bid = tuple(set(weibo_bid))
-
+    print(weibo_bid)
     sql = "select source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     retweeted_username = control.fetchall()
