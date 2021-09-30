@@ -183,18 +183,13 @@ def get_comment(word,mode):
         time.sleep(SNAP)  # 爬取时间间隔
         mode = 0
     # 爬取相关话题微博的评论
-    sql = "select uid from `{table_name}`;".format(table_name=keyword)
+    sql = "select uid,source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
-    weibo_bid = control.fetchall()
-
-    print(weibo_bid)
-    sql = "select source_user from `{table_name}`;".format(table_name=keyword)
-    control.execute(sql)
-    retweeted_username = control.fetchall()
+    bid_username = tuple(set(control.fetchall()))
 
 
     for i in range(0, len(weibo_bid)):
-        commemts = main_function(weibo_bid[i][0], retweeted_username[i][0])
+        commemts = main_function(bid_username[i][0], bid_username[i][1])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
             sql = add(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4])
