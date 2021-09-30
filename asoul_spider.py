@@ -164,7 +164,6 @@ def get_comment(word,mode):
             print("第%d页无数据！" % page)
             print("爬取完成！共获取%d页数据" % (page - 1))
             break
-        print(json)
         results = parse_weibo_page(json)
         print(results)
         for result in results:  # 需要存入的字段
