@@ -78,10 +78,13 @@ def get_detailed_Data(item):
         Text = pq(item.get("text")).text()  # 仅提取内容中的文本
     else:  # 长文本涉及文本的展开
         Text = get_long_text(item.get('id'))  # 调用函数获取长文本
-    # 保存微博id,为后续爬取微博评论做准备
-    weibo_bid[index] = item.get('bid')
-    # 保存微博发布者用户名,为后续爬取微博评论时的便于保存回复关系
-    retweeted_username[index] = item.get('user').get('screen_name')
+
+    # # 保存微博id,为后续爬取微博评论做准备
+    # weibo_bid[index] = item.get('bid')
+
+    # # 保存微博发布者用户名,为后续爬取微博评论时的便于保存回复关系
+    # retweeted_username[index] = item.get('user').get('screen_name')
+
     weiboTime = item.get('created_at')  # 获取微博创建时间
     weiboTime = str(get_format_datetime(weiboTime))  # 格式化处理微博时间
     data = {
@@ -90,6 +93,7 @@ def get_detailed_Data(item):
         'created': weiboTime,
         'text': Text,
         'retweeted_username': "",  # 默认无转发关系
+        'bid':item.get('bid'),
     }
     if item.get('retweeted_status'):  # 判断有无转发/回复关系
         data['retweeted_username'] = item.get('retweeted_status').get('user').get('screen_name')
@@ -117,14 +121,10 @@ def parse_weibo_page(json):
 
 # 处理sql语句
 def add(uid, username, update_time, source_user, comment,bid):
-    cmd = 'insert into {table_name} values ("{uid}","{username}","{update_time}","{source_user}","{comment}","{bid}");' \
+    cmd = 'insert into {table_name} values ("{uid}","{username}","{update_time}","{source_user}","{comment}","{bid}");'\
         .format(table_name=keyword, uid=uid, username=username, update_time=update_time, \
-                source_user=source_user, bid=bid,comment=comment.replace("'", "''").replace("\"", "\\\""))
+                source_user=source_user, comment=comment.replace("'", "''").replace("\"", "\\\""),bid=bid,)
     return cmd
-
-
-# def seach():
-#     return
 
 def get_comment(word,mode):
     server = 1
@@ -166,7 +166,7 @@ def get_comment(word,mode):
             break
         results = parse_weibo_page(json)
         for result in results:  # 需要存入的字段
-            if result.get('id'):  # 判断数据是否为空，若不为空，则保存数据/传入数据库
+            if result.get('id'):  # 判断数据是否为空，若不为空，则传入数据库
                 uid = str(result.get('id'))
                 username = result.get('username')
                 update_time = result.get('created')
