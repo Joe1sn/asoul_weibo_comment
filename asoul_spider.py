@@ -160,6 +160,7 @@ def get_comment(word,mode):
         print("正在获取第%d页数据..." % page)
         json = get_weibo_page(page)
         print("第%d页数据获取完成！" % page)
+        print(json)
         if json.get('ok') == 0:
             print("第%d页无数据！" % page)
             print("爬取完成！共获取%d页数据" % (page - 1))
