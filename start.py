@@ -13,8 +13,12 @@ os.system('toilet -f standard "Asoul Spider" | lolcat')
 if __name__ == '__main__':
     keyword_list = ["asoul", "嘉然", "向晚", "珈乐", "乃琳"]
     i = 0
-    ch = input("是否上次爬取失败? Y/N")
+    ch = input("是否上次爬取失败? Y/M/N\n")
     if ch == 'Y':
         i = int(input("Keyword ID> "))
     while i < len(keyword_list):
-        get_comment(keyword_list[i])
+        if ch == 'M':
+            get_comment(keyword_list[i],1)
+        else:
+            get_comment(keyword_list[i],0)
+        i+=1

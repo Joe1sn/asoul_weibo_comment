@@ -126,7 +126,7 @@ def add(uid, username, update_time, source_user, comment):
 # def seach():
 #     return
 
-def get_comment(word):
+def get_comment(word,mode):
     server = 1
     if server:
         db = MySQLdb.connect(
@@ -149,11 +149,14 @@ def get_comment(word):
 
     global keyword
     keyword = word
-
     page = 0
     # 爬取相关话题微博
     while 1:  # 瀑布流下拉式，加载
-        page += 1
+        if mode:
+            page = 11
+        else:
+            page += 1
+
         print("正在获取第%d页数据..." % page)
         json = get_weibo_page(page)
         print("第%d页数据获取完成！" % page)
@@ -188,7 +191,7 @@ def get_comment(word):
     retweeted_username = control.fetchall()
 
     for i in range(0, len(weibo_bid)):
-        commemts = main_function(weibo_bid[i], retweeted_username[i])
+        commemts = main_function(weibo_bid[i][0], retweeted_username[i][0])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
             sql = add(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4])
