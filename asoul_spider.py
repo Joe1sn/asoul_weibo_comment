@@ -15,7 +15,6 @@ import MySQLdb
 import time
 
 # 待爬取的关键词
-# keyword_list = ["asoul", "嘉然", "向晚", "贝拉", "珈乐", "乃琳"]
 global keyword
 
 SNAP = 4
@@ -117,12 +116,14 @@ def parse_weibo_page(json):
 
 
 # 处理sql语句
-def sqlcmd(uid, username, update_time, source_user, comment):
+def add(uid, username, update_time, source_user, comment):
     cmd = 'insert into {table_name} values ("{uid}","{username}","{update_time}","{source_user}","{comment}");' \
         .format(table_name=keyword, uid=uid, username=username, update_time=update_time, source_user=source_user,
                 comment=comment.replace("'", "''").replace("\"", "\\\""))
     return cmd
 
+# def seach():
+#     return
 
 def get_comment(word):
     server = 1
@@ -169,7 +170,7 @@ def get_comment(word):
                 update_time = result.get('created')
                 source_user = result.get('retweeted_username')
                 comment = result.get('text')
-                sql = sqlcmd(uid=uid,username=username, update_time=update_time, source_user=source_user,
+                sql = add(uid=uid,username=username, update_time=update_time, source_user=source_user,
                              comment=comment)
                 global count
                 count += 1
@@ -178,11 +179,18 @@ def get_comment(word):
         time.sleep(SNAP)  # 爬取时间间隔
 
     # 爬取相关话题微博的评论
+    sql = "select uid from `{table_name}`;".format(table_name=keyword)
+    control.execute(sql)
+    weibo_bid = control.fetchall()
+    sql = "select source_user from `{table_name}`;".format(table_name=keyword)
+    control.execute(sql)
+    retweeted_username = control.fetchall()
+
     for i in range(0, len(weibo_bid)):
         commemts = main_function(weibo_bid[i], retweeted_username[i])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
-            sql = sqlcmd(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4])
+            sql = add(uid=str(L[0]), username=L[1], update_time=L[2], source_user=str(L[3]), comment=L[4])
             control.execute(sql)
             db.commit()
             count += 1

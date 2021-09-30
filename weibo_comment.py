@@ -13,18 +13,8 @@ from time_issue import get_format_datetime
 
 comments_list = []
 
-# 评论全局列表
-with open("list.txt", "r", encoding="utf-8") as list_file:
-    comments_list = list(list_file.read())
-
 SNAP = 3  # 间隔时间 s
-
-
-# 保存评论列表
-def save_list(LIST):
-    with open("list.txt", "w", encoding="utf-8") as list_file:
-        list_file.write(str(LIST))
-
+LONGSNAP = 60
 
 # 发送请求、获取数据
 def get_data(url):
@@ -38,8 +28,8 @@ def get_data(url):
         if r.status_code == 200:
             return r.json()
         else:
-            print("出现抓取错误！！！状态码：", r.status_code)
-            exit()
+            print("服务器拒绝连接，状态码：", r.status_code)
+            return "WAIT"
     except:
         return "ERROR!!!"
 
@@ -94,9 +84,6 @@ def get_comments(json_data, lists, username):
                 time = str(get_format_datetime(time))
 
         lists.append([id, user_name, time, reply, comments])
-        # comments_list.append([id, user_name, time, reply, comments])
-        save_list(lists)
-
 
 # 获取微博评论主函数
 def main_function(weibo_bid, retweeted_username):
@@ -106,6 +93,9 @@ def main_function(weibo_bid, retweeted_username):
     while 1:
         url = 'https://m.weibo.cn/api/comments/show?id=' + str(weibo_bid) + '&page=' + str(num)
         json_data = get_data(url)
+        if json_data == "WAIT":
+            time.sleep(LONGSNAP)
+            continue
         time.sleep(SNAP)
         num += 1
         if json_data.get('ok') == 0:

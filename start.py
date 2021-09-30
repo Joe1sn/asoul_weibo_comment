@@ -6,8 +6,14 @@
 # @Software: PyCharm
 # @Version : python3.8
 from asoul_spider import get_comment
+import os
+os.system('toilet -f standard "Asoul Spider" | lolcat')
 
 if __name__ == '__main__':
     keyword_list = ["asoul", "嘉然", "向晚", "珈乐", "乃琳"]
-    for i in keyword_list:
-        get_comment(i)
+    i=0
+    ch=input("是否上次爬取失败?")
+    if ch:
+        i = int(input("Keyword ID> "))
+    while i < len(keyword_list):
+        get_comment(keyword_list[i])
