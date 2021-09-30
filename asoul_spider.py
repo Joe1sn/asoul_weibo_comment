@@ -116,10 +116,10 @@ def parse_weibo_page(json):
 
 
 # 处理sql语句
-def add(uid, username, update_time, source_user, comment):
-    cmd = 'insert into {table_name} values ("{uid}","{username}","{update_time}","{source_user}","{comment}");' \
-        .format(table_name=keyword, uid=uid, username=username, update_time=update_time, source_user=source_user,
-                comment=comment.replace("'", "''").replace("\"", "\\\""))
+def add(uid, username, update_time, source_user, comment,bid):
+    cmd = 'insert into {table_name} values ("{uid}","{username}","{update_time}","{source_user}","{comment}","{bid}");' \
+        .format(table_name=keyword, uid=uid, username=username, update_time=update_time, \
+                source_user=source_user, bid=bid,comment=comment.replace("'", "''").replace("\"", "\\\""))
     return cmd
 
 
@@ -172,8 +172,9 @@ def get_comment(word,mode):
                 update_time = result.get('created')
                 source_user = result.get('retweeted_username')
                 comment = result.get('text')
+                bid = result.get('bid')
                 sql = add(uid=uid, username=username, update_time=update_time, source_user=source_user,
-                          comment=comment)
+                          comment=comment,bid=bid)
                 global count
                 count += 1
                 control.execute(sql)
@@ -183,7 +184,7 @@ def get_comment(word,mode):
 
 
     # 爬取相关话题微博的评论
-    sql = "select uid,source_user from `{table_name}`;".format(table_name=keyword)
+    sql = "select bid,source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     bid_username = tuple(set(control.fetchall()))
     print(bid_username)
