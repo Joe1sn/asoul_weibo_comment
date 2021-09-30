@@ -181,7 +181,7 @@ def get_comment(word,mode):
                 control.execute(sql)
                 db.commit()
         time.sleep(SNAP)  # 爬取时间间隔
-
+        mode = 0
     # 爬取相关话题微博的评论
     sql = "select uid from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
