@@ -153,7 +153,7 @@ def get_comment(word,mode):
     # 爬取相关话题微博
     while 1:  # 瀑布流下拉式，加载
         if mode:
-            page = 13
+            page = 10
         else:
             page += 1
 
@@ -182,6 +182,8 @@ def get_comment(word,mode):
                 db.commit()
         time.sleep(SNAP)  # 爬取时间间隔
         mode = 0
+
+
     # 爬取相关话题微博的评论
     sql = "select uid,source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
