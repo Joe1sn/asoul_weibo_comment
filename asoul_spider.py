@@ -125,7 +125,7 @@ def sqlcmd(uid, username, update_time, source_user, comment):
 
 
 def get_comment(word):
-    server = 0
+    server = 1
     if server:
         db = MySQLdb.connect(
             "localhost",
