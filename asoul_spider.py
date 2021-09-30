@@ -190,7 +190,7 @@ def get_comment(word,mode):
     bid_username = tuple(set(control.fetchall()))
 
 
-    for i in range(0, len(weibo_bid)):
+    for i in range(0, len(bid_username)):
         commemts = main_function(bid_username[i][0], bid_username[i][1])
         # 保存爬取的相关话题微博的评论
         for L in commemts:
