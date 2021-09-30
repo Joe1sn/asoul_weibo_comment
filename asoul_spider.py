@@ -186,7 +186,7 @@ def get_comment(word,mode):
     sql = "select uid,source_user from `{table_name}`;".format(table_name=keyword)
     control.execute(sql)
     bid_username = tuple(set(control.fetchall()))
-
+    print(bid_username)
 
     for i in range(0, len(bid_username)):
         commemts = main_function(bid_username[i][0], bid_username[i][1])

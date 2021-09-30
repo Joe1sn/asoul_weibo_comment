@@ -16,7 +16,7 @@ if __name__ == '__main__':
     ch = input("是否上次爬取失败? Y/N\n")
     if ch == 'Y':
         i = int(input("Keyword ID> "))
-    ch = input("继续上次爬取?\n Y/N")
+    ch = input("继续上次爬取? Y/N\n")
     while i < len(keyword_list):
         if ch == 'Y':
             get_comment(keyword_list[i],1)
