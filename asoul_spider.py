@@ -165,7 +165,6 @@ def get_comment(word,mode):
             print("爬取完成！共获取%d页数据" % (page - 1))
             break
         results = parse_weibo_page(json)
-        print(results)
         for result in results:  # 需要存入的字段
             if result.get('id'):  # 判断数据是否为空，若不为空，则保存数据/传入数据库
                 uid = str(result.get('id'))
