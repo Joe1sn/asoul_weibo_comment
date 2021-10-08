@@ -138,19 +138,9 @@ def get_comment(word,mode):
     server = 1
     if server:
         db = MySQLdb.connect(
-            "localhost",
-            "admin",
-            "MjfoyX3gUF0j5",
-            "WeiboComment",
-            charset='utf8mb4'
         )
     else:
         db = MySQLdb.connect(
-            "localhost",
-            "root",
-            "J8Ltt50tVC297Y612I7T",
-            "weibocomment",
-            charset='utf8mb4'
         )
 
     control = db.cursor()
